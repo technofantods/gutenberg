@@ -1,20 +1,15 @@
 /**
- * External dependencies
- */
-import { connect } from 'react-redux';
-
-/**
  * WordPress dependencies
  */
 import { Component } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { Dashicon, ClipboardButton, Button } from '@wordpress/components';
+import { withSelect } from '@wordpress/data';
 
 /**
  * Internal Dependencies
  */
 import './style.scss';
-import { isEditedPostNew, getEditedPostAttribute } from '../../store/selectors';
 
 class PostPermalink extends Component {
 	constructor() {
@@ -68,11 +63,12 @@ class PostPermalink extends Component {
 	}
 }
 
-export default connect(
-	( state ) => {
+export default withSelect(
+	( select ) => {
+		const { isEditedPostNew, getEditedPostAttribute } = select( 'core/editor' );
 		return {
-			isNew: isEditedPostNew( state ),
-			link: getEditedPostAttribute( state, 'link' ),
+			isNew: isEditedPostNew(),
+			link: getEditedPostAttribute( 'link' ),
 		};
 	}
 )( PostPermalink );
