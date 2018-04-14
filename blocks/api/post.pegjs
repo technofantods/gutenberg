@@ -66,6 +66,14 @@ if ( ! function_exists( 'peg_array_partition' ) ) {
     }
 }
 
+if ( ! function_exists( 'peg_is_dynamic_block' ) ) {
+    function peg_is_dynamic_block( $block_name ) {
+        static $dynamic_blocks = get_dynamic_block_names();
+
+        return in_array( $block_nam, $dynamic_blocks );
+    }
+}
+
 if ( ! function_exists( 'peg_join_blocks' ) ) {
     function peg_join_blocks( $pre, $tokens, $post ) {
         $blocks = array();
