@@ -168,6 +168,21 @@ Block_List
     return joinBlocks( pre, ts, post );
   }
 
+Rendered_Output
+  = ts:Rendered_Token* { return ts.join( '' ) }
+
+Rendered_Token
+  = Dynamic_Block
+  / Block_Start { return '' }
+  / Block_End { return '' }
+  / Block_Void { return '' }
+  / .
+
+Dynamic_Block
+  = s:Block_Start c:(!Block_End .)+ e:Block_End
+  & { return false /** <?php return peg_is_dynamic_block( $s['blockName'] ); ?> **/ }
+  { return '' /** <?php return 'dynamic'; ?> **/ }
+
 Token
   = Block_Void
   / Block_Balanced
