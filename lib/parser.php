@@ -1768,7 +1768,7 @@ class Gutenberg_PEG_Parser {
 
     if ( ! function_exists( 'peg_is_dynamic_block' ) ) {
         function peg_is_dynamic_block( $block_name ) {
-            static $dynamic_blocks = get_dynamic_block_names();
+            $dynamic_blocks = get_dynamic_block_names();
 
             return in_array( $block_nam, $dynamic_blocks );
         }
