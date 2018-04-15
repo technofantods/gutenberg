@@ -259,8 +259,8 @@ class Gutenberg_PEG_Parser {
 
     private function peg_f0($pre, $t, $html) { return array( $t, $html ); }
     private function peg_f1($pre, $ts, $post) { return peg_join_blocks( $pre, $ts, $post ); }
-    private function peg_f2($ts) { return ts.join( '' ) }
-    private function peg_f3() { return '' }
+    private function peg_f2($ts) { return implode( '', $ts ); }
+    private function peg_f3() { return ''; }
     private function peg_f4($s, $c, $e) { return peg_is_dynamic_block( $s['blockName'] ); }
     private function peg_f5($s, $c, $e) { return 'dynamic'; }
     private function peg_f6($blockName, $a) { return $a; }

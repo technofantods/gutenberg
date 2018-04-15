@@ -177,13 +177,13 @@ Block_List
   }
 
 Rendered_Output
-  = ts:Rendered_Token* { return ts.join( '' ) }
+  = ts:Rendered_Token* { return ts.join( '' ) /** <?php return implode( '', $ts ); ?> **/ }
 
 Rendered_Token
   = Dynamic_Block
-  / Block_Start { return '' }
-  / Block_End { return '' }
-  / Block_Void { return '' }
+  / Block_Start { return '' /** <?php return ''; ?> **/ }
+  / Block_End { return '' /** <?php return ''; ?> **/ }
+  / Block_Void { return '' /** <?php return ''; ?> **/ }
   / .
 
 Dynamic_Block
