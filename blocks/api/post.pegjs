@@ -181,15 +181,22 @@ Rendered_Output
 
 Rendered_Token
   = Dynamic_Block
-  / Block_Start { return '' /** <?php return ''; ?> **/ }
-  / Block_End { return '' /** <?php return ''; ?> **/ }
-  / Block_Void { return '' /** <?php return ''; ?> **/ }
+  / Block_Start { return '_bs_' /** <?php return ''; ?> **/ }
+  / Block_End { return '_be_' /** <?php return ''; ?> **/ }
+  / Block_Void { return '_bv_' /** <?php return ''; ?> **/ }
   / .
 
 Dynamic_Block
-  = s:Block_Start c:(!Block_End .)+ e:Block_End
+  = s:Block_Void
   & { return false /** <?php return peg_is_dynamic_block( $s['blockName'] ); ?> **/ }
-  { return '' /** <?php return 'dynamic'; ?> **/ }
+  { return 'dynamicJS' /** <?php return 'dynamic'; ?> **/ }
+  / s:Dynamic_Block_Start c:(!Block_End .)+ e:Block_End
+  { return 'dynamicJS' /** <?php return 'dynamic'; ?> **/ }
+
+Dynamic_Block_Start
+  = s:Block_Start
+  & { return false /** <?php return peg_is_dynamic_block( $s['blockName'] ); ?> **/ }
+  { return s /** <?php return $s; ?> **/ }
 
 Token
   = Block_Void

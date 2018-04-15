@@ -308,7 +308,9 @@ export function createBlockWithFallback( blockNode ) {
  * @return {Array} Block list.
  */
 export function parseWithGrammar( content ) {
-	console.log( grammarParse( content, { startRule: 'Rendered_Output' } ) );
+	// console.log( grammarParse( content, { startRule: 'Rendered_Output' } ) );
+	window.parser = grammarParse;
+	window.content = content;
 
 	return grammarParse( content ).reduce( ( memo, blockNode ) => {
 		const block = createBlockWithFallback( blockNode );
